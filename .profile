@@ -1,5 +1,3 @@
-export PS1='\[\e[1;30m\]\u@Retina:\[\e[1;3'$(date +%u)'m\]\w\[\e[1;30m\]$ \[\e[0;39m\]'
-
 ################
 # ANSI COLOR
 ################
@@ -12,6 +10,24 @@ RESET=`echo -en '[0m'`
 ################
 # GIT
 ################
+function git_branch {
+    ref=$(git symbolic-ref HEAD 2> /dev/null) || return;
+    echo "("${ref#refs/heads/}") ";
+}
+
+function git_since_last_commit {
+    now=`date +%s`;
+    last_commit=$(git log --pretty=format:%at -1 2> /dev/null) || return;
+    seconds_since_last_commit=$((now-last_commit));
+    minutes_since_last_commit=$((seconds_since_last_commit/60));
+    hours_since_last_commit=$((minutes_since_last_commit/60));
+    minutes_since_last_commit=$((minutes_since_last_commit%60));
+    
+    echo "${hours_since_last_commit}h${minutes_since_last_commit}m ";
+}
+
+export PS1='\[\e[1;30m\]\u@Retina:\[\e[1;3'"$(date +%u)"'m\]\w\[\e[1;36m\]'"\$(git_branch)"'\[\e[1;30m\]$ \[\e[0;39m\]'
+
 alias gd='git difftool --tool=vimdiff --no-prompt'
 gdv() { git diff $@ | vi - ; }
 alias gs='git status'
