@@ -12,7 +12,7 @@ RESET=`echo -en '[0m'`
 ################
 function git_branch {
     ref=$(git symbolic-ref HEAD 2> /dev/null) || return;
-    echo "("${ref#refs/heads/}") ";
+    echo "|"${ref#refs/heads/};
 }
 
 function git_since_last_commit {
