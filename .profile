@@ -11,8 +11,11 @@ RESET=`echo -en '[0m'`
 # GIT
 ################
 function git_branch {
-    ref=$(git symbolic-ref HEAD 2> /dev/null) || return;
-    echo "|"${ref#refs/heads/};
+    remote="$(git config --get remote.origin.url)"
+    if [ "$remote" -a "$remote" != 'https://github.com/smk2124/homeosx.git' ] ; then
+        ref=$(git symbolic-ref HEAD 2> /dev/null) || return;
+        echo "|"${ref#refs/heads/};
+    fi
 }
 
 function git_since_last_commit {
