@@ -37,7 +37,7 @@ alias gs='git status'
 alias gl="git logc"
 alias ga='git add .'
 alias gp='git pull --rebase'
-alias grep='grep --color=auto'
+alias grep='grep --exclude-dir .git --color=auto'
 alias ls='ls -G'
 
 ################
