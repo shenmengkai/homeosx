@@ -7,6 +7,8 @@ autocmd FileType make setlocal noexpandtab
 syntax on
 set hlsearch
 set laststatus=2
+set autoindent
+set smartindent
 
 " VIM PATHOGEN PLUGINS
 execute pathogen#infect()
